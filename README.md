@@ -7,8 +7,7 @@ Home for all homework assignment submissions for:
 > Portland State University
 > Maseeh College of Engineering and Computer Science
 
-Student: Bradley Thomspon
-Odin Username: bradlet2
+Student: Bradley Thomspon | Odin Username: bradlet2
 
 ## Project Structure
 
