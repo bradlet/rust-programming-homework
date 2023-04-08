@@ -13,7 +13,6 @@ fn main() {
     if args.len() != 3 {
         error()
     }
-
 }
 
 /// Print a usage error message and exit (essentially what's from HW1 handout).
@@ -25,6 +24,7 @@ fn error() -> ! {
 
 /// Helper to parse a string slice as a u64, or panic!
 fn parse_num<T: FromStr>(s: &str) -> T {
+    // TODO: Should prob just move this to my helper lib
     match s.parse() {
         Ok(num) => num,
         Err(_) => {
