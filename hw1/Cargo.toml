@@ -1,6 +1,6 @@
 [package]
 name = "bradlet2-rust-programming"
 version = "0.1.0"
-edition = "2023"
+edition = "2021"
 
 [dependencies]
