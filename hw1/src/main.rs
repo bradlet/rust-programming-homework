@@ -4,15 +4,30 @@ use bradleys_random_rust_helpers::*;
 use std::str::FromStr;
 use text_colorizer::{Color, *};
 
+const LINE_LEN: u8 = 36;
+
 fn main() {
     println!("Hello, welcome to Homework 1!");
-    horizontal_sep(16, Some(Color::Green));
+    horizontal_sep(LINE_LEN, Some(Color::Green));
 
     let args: Vec<String> = std::env::args().skip(1).collect(); // Skip the program name
 
     if args.len() != 3 {
         error()
     }
+
+    println!("Trying modexp({})...", args.join(","));
+
+    // Note: parse_num restrains input to target bounds implicitly b/c it casts to u64.
+    let parsed: Vec<u64> = args.iter().map(|str| parse_num(str)).collect();
+
+    let exp_modulo = modexp(parsed[0], parsed[1], parsed[2]);
+    println!("Result: {}", exp_modulo);
+    horizontal_sep(LINE_LEN, Some(Color::Green));
+}
+
+fn modexp(x: u64, y: u64, m: u64) -> u64 {
+    0
 }
 
 /// Print a usage error message and exit (essentially what's from HW1 handout).
