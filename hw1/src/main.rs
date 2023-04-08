@@ -26,6 +26,7 @@ fn main() {
     horizontal_sep(LINE_LEN, Some(Color::Green));
 }
 
+/// Function that should efficiently calculate: x^y % m
 fn modexp(x: u64, y: u64, m: u64) -> u64 {
     0
 }
