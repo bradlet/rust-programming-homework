@@ -4,3 +4,5 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+bradleys-random-rust-helpers = { git = "https://github.com/bradlet/bradleys-random-rust-helpers" }
+text-colorizer = "1"
