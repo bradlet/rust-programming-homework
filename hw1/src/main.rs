@@ -32,7 +32,6 @@ fn modexp(x: u64, y: u64, m: u64) -> u64 {
         0
     } else {
         let mut z = 1_u64;
-
         0
     }
 }
@@ -63,7 +62,11 @@ mod tests {
 
     #[test]
     fn test_modexp() {
-        assert_eq!(modexp(2, 2, 1), 0)
+        assert_eq!(modexp(2, 2, 1), 0);
+        assert_eq!(modexp(4, 40, 16), 0);
+        assert_eq!(modexp(2, 40, 20), 16);
+        assert_eq!(modexp(1_640, 100, 3), 2);
+        assert_eq!(modexp(1_000, 1_000_000_000, 99_999_999), 2);
     }
 
     #[test]
