@@ -41,7 +41,7 @@ fn modexp(x: u64, y: u64, m: u64) -> u64 {
             if (y % 2) == 1 {
                 z = (z % m) * (x % m) % m
             }
-            y = y / 2;
+            y /= 2;
             x = x.pow(2) % m
         }
         u64::try_from(z).unwrap()
