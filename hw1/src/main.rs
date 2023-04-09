@@ -29,12 +29,14 @@ fn main() {
 /// Function that should efficiently calculate: x^y % m
 fn modexp(x: u64, y: u64, m: u64) -> u64 {
     assert!(m != 0);
+    let mut x = u128::from(x);
+    let mut y = u128::from(y);
+    let m = u128::from(m);
 
-    let (mut x, mut y) = (x, y);
     if m == 1 {
         0
     } else {
-        let mut z = 1_u64;
+        let mut z = 1_u128;
         while y > 0 {
             if (y % 2) == 1 {
                 z = (z % m) * (x % m) % m
@@ -42,7 +44,7 @@ fn modexp(x: u64, y: u64, m: u64) -> u64 {
             y = y / 2;
             x = x.pow(2) % m
         }
-        z
+        u64::try_from(z).unwrap()
     }
 }
 
