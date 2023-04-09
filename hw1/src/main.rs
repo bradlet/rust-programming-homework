@@ -82,6 +82,12 @@ mod tests {
     }
 
     #[test]
+    #[should_panic]
+    fn test_modexp_panics_on_bad_m() {
+        modexp(1, 2, 0);
+    }
+
+    #[test]
     fn test_modexp_from_handout() {
         // Largest prime less than 2**64.
         // https://primes.utm.edu/lists/2small/0bit.html
