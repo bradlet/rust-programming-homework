@@ -28,6 +28,8 @@ fn main() {
 
 /// Function that should efficiently calculate: x^y % m
 fn modexp(x: u64, y: u64, m: u64) -> u64 {
+    assert!(m != 0);
+
     let (mut x, mut y) = (x, y);
     if m == 1 {
         0
@@ -35,7 +37,7 @@ fn modexp(x: u64, y: u64, m: u64) -> u64 {
         let mut z = 1_u64;
         while y > 0 {
             if (y % 2) == 1 {
-                z = (z * x) % m
+                z = (z % m) * (x % m) % m
             }
             y = y / 2;
             x = x.pow(2) % m
@@ -70,10 +72,11 @@ mod tests {
 
     #[test]
     fn test_modexp() {
+        assert_eq!(modexp(2, 20, 17), 16);
         assert_eq!(modexp(2, 2, 1), 0);
-        assert_eq!(modexp(4, 40, 16), 0);
         assert_eq!(modexp(2, 40, 20), 16);
-        assert_eq!(modexp(1_640, 100, 3), 2);
+        assert_eq!(modexp(1_640, 100, 3), 1);
+        assert_eq!(modexp(1_000_000_000, 500, 99_999_999), 10_000);
     }
 
     #[test]
