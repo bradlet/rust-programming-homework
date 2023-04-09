@@ -14,14 +14,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "bradlet2-rust-programming"
-version = "0.1.0"
-dependencies = [
- "bradleys-random-rust-helpers",
- "text-colorizer",
-]
-
-[[package]]
 name = "bradleys-random-rust-helpers"
 version = "0.1.0"
 source = "git+https://github.com/bradlet/bradleys-random-rust-helpers#d935dcf3cabc0b45c50a41d7ef5738a49147c023"
@@ -60,6 +52,14 @@ name = "libc"
 version = "0.2.141"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3304a64d199bb964be99741b7a14d26972741915b3649639149b2479bb46f4b5"
+
+[[package]]
+name = "modexp"
+version = "0.1.0"
+dependencies = [
+ "bradleys-random-rust-helpers",
+ "text-colorizer",
+]
 
 [[package]]
 name = "text-colorizer"
