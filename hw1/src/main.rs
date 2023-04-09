@@ -28,7 +28,13 @@ fn main() {
 
 /// Function that should efficiently calculate: x^y % m
 fn modexp(x: u64, y: u64, m: u64) -> u64 {
-    0
+    if m == 1 {
+        0
+    } else {
+        let mut z = 1_u64;
+
+        0
+    }
 }
 
 /// Print a usage error message and exit (essentially what's from HW1 handout).
@@ -54,6 +60,11 @@ fn parse_num<T: FromStr>(s: &str) -> T {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn test_modexp() {
+        assert_eq!(modexp(2, 2, 1), 0)
+    }
 
     #[test]
     fn test_parse_num() {
