@@ -28,11 +28,19 @@ fn main() {
 
 /// Function that should efficiently calculate: x^y % m
 fn modexp(x: u64, y: u64, m: u64) -> u64 {
+    let (mut x, mut y) = (x, y);
     if m == 1 {
         0
     } else {
         let mut z = 1_u64;
-        0
+        while y > 0 {
+            if (y % 2) == 1 {
+                z = (z * x) % m
+            }
+            y = y / 2;
+            x = x.pow(2) % m
+        }
+        z
     }
 }
 
@@ -66,7 +74,20 @@ mod tests {
         assert_eq!(modexp(4, 40, 16), 0);
         assert_eq!(modexp(2, 40, 20), 16);
         assert_eq!(modexp(1_640, 100, 3), 2);
-        assert_eq!(modexp(1_000, 1_000_000_000, 99_999_999), 2);
+    }
+
+    #[test]
+    fn test_modexp_from_handout() {
+        // Largest prime less than 2**64.
+        // https://primes.utm.edu/lists/2small/0bit.html
+        let bigm = u64::max_value() - 58;
+        assert_eq!(0, modexp(bigm - 2, bigm - 1, 1));
+        assert_eq!(1, modexp(bigm - 2, bigm - 1, bigm));
+        assert_eq!(827419628471527655, modexp(bigm - 2, (1 << 32) + 1, bigm));
+        // https://practice.geeksforgeeks.org/problems/
+        //    modular-exponentiation-for-large-numbers/0
+        assert_eq!(4, modexp(10, 9, 6));
+        assert_eq!(34, modexp(450, 768, 517));
     }
 
     #[test]
