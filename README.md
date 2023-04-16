@@ -20,5 +20,4 @@ So there will be one directory per create like:
 > -   hw2
 >     ...
 
-There will also be (not necessarily after the first assignment) a separate common library crate hosted on my own github. This is where
-I'll centralize helpers (not necessarily cool, just common helper functions that I'd like to re-use) to be re-used across assignments.
+There is also a separate common library crate hosted on my own github. Check that out here: [Bradley's Random Rust Helpers](https://github.com/bradlet/bradleys-random-rust-helpers)
