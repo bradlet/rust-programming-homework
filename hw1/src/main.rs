@@ -1,7 +1,6 @@
 /// HW1
 /// Bradley Thompson
-use bradleys_random_rust_helpers::*;
-use std::str::FromStr;
+use bradleys_random_rust_helpers::{parse_num, horizontal_sep};
 use text_colorizer::{Color, *};
 
 const LINE_LEN: u8 = 36;
@@ -55,18 +54,6 @@ fn error() -> ! {
     std::process::exit(1);
 }
 
-/// Helper to parse a string slice as a u64, or panic!
-fn parse_num<T: FromStr>(s: &str) -> T {
-    // TODO: Should prob just move this to my helper lib
-    match s.parse() {
-        Ok(num) => num,
-        Err(_) => {
-            let parse_error = format!("Invalid input detected: {}", s).bright_red();
-            eprintln!("{parse_error}");
-            panic!("Invalid input");
-        }
-    }
-}
 
 #[cfg(test)]
 mod tests {

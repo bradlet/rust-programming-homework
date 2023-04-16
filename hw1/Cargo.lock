@@ -16,7 +16,7 @@ dependencies = [
 [[package]]
 name = "bradleys-random-rust-helpers"
 version = "0.1.0"
-source = "git+https://github.com/bradlet/bradleys-random-rust-helpers#d935dcf3cabc0b45c50a41d7ef5738a49147c023"
+source = "git+https://github.com/bradlet/bradleys-random-rust-helpers#853aa684310f29657b9f122416e82d92fe862290"
 dependencies = [
  "text-colorizer",
 ]
