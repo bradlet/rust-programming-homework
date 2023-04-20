@@ -28,6 +28,8 @@ pub fn encrypt(key: u64, msg: u32) -> u64 {
 
 /// Decrypt the cipertext `msg` using the RSA private `key`
 /// and return the resulting plaintext.
+/// # Panics
+/// Panic if decrypted message can't fit into u32.
 pub fn decrypt(key: (u32, u32), msg: u64) -> u32 {
     let (p, q) = (u64::from(key.0), u64::from(key.1));
     let ct = charmichaels_totient(p, q);
