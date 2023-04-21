@@ -1,0 +1,9 @@
+[package]
+name = "hw2-cli"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+hw2 = { path = "../hw2" }
+bradleys-random-rust-helpers = { git = "https://github.com/bradlet/bradleys-random-rust-helpers" }
+text-colorizer = "1"
