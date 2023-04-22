@@ -5,7 +5,7 @@ pub const EXP: u64 = 65_537;
 
 /// Returns the least common multiple between two numbers
 fn charmichaels_totient(p: u64, q: u64) -> u64 {
-    lcm(p-1, q-1)
+    lcm(p - 1, q - 1)
 }
 
 /// Generate a pair of primes in the range `2**31..2**32`
@@ -15,7 +15,7 @@ pub fn genkey() -> (u32, u32) {
         let (p, q) = (rsa_prime(), rsa_prime());
         let ct = charmichaels_totient(u64::from(p), u64::from(q));
         if (EXP < ct) && (gcd(EXP, ct) == 1) {
-            return (p, q)
+            return (p, q);
         }
     }
 }
@@ -38,11 +38,11 @@ pub fn decrypt(key: (u32, u32), msg: u64) -> u32 {
 }
 
 #[cfg(test)]
-mod tests {
+mod libtests {
     use super::*;
 
     #[test]
-    fn test_lambda() {
+    fn test_charmichaels_totient() {
         let inputs = [(2, 3), (4, 10), (11, 13)];
         let expectations = [2, 9, 60];
         for i in 0..2 {

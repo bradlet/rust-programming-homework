@@ -92,6 +92,7 @@ name = "hw2"
 version = "0.1.0"
 dependencies = [
  "num",
+ "rand",
  "toy_rsa_lib",
 ]
 
