@@ -1,6 +1,6 @@
 //! lib.rs
 //! HW2
-//! Author: Bradley Thompson
+//! Author: Bradley Thompson | odin: bradlet2 | student id: 962136744
 //! CS 510 Rust Programming (Spring 2023) - Bart Massey
 use toy_rsa_lib::*;
 
