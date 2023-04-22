@@ -1,3 +1,7 @@
+//! lib.rs
+//! HW2
+//! Author: Bradley Thompson
+//! CS 510 Rust Programming (Spring 2023) - Bart Massey
 use toy_rsa_lib::*;
 
 /// Fixed RSA encryption exponent.
@@ -10,6 +14,9 @@ fn charmichaels_totient(p: u64, q: u64) -> u64 {
 
 /// Generate a pair of primes in the range `2**31..2**32`
 /// suitable for RSA encryption with exponent.
+///
+/// # Output
+/// A tuple consisting of two u32 which makeup a private key, and whose product act as the pubkey.
 pub fn genkey() -> (u32, u32) {
     loop {
         let (p, q) = (rsa_prime(), rsa_prime());
@@ -22,12 +29,27 @@ pub fn genkey() -> (u32, u32) {
 
 /// Encrypt the plaintext `msg` using the RSA public `key`
 /// and return the ciphertext.
+///
+/// # Arguments
+/// - `key`: The public key; product of the two private key components output by `genkey()`.
+/// - `msg`: The plaintext to be encrypted into cyphertext
+///
+/// # Output
+/// A u64 which is the encrypted msg known as the 'cyphertext'.
 pub fn encrypt(key: u64, msg: u32) -> u64 {
     modexp(u64::from(msg), EXP, key)
 }
 
 /// Decrypt the cipertext `msg` using the RSA private `key`
 /// and return the resulting plaintext.
+///
+/// # Arguments
+/// - `key`: A tuple consisting of both components of the generated private key.
+/// - `msg`: The cyphertext to be decrypted into a plaintext message.
+///
+/// # Output
+/// The original u32 plaintext message that was fed into `encrypt`.
+///
 /// # Panics
 /// Panic if decrypted message can't fit into u32.
 pub fn decrypt(key: (u32, u32), msg: u64) -> u32 {
