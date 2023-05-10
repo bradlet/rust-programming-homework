@@ -89,12 +89,14 @@ impl Chomp {
         /// pair that cannot be followed with a non-losing moving.
         fn winning_move(chmp: &mut Chomp) -> Option<(usize, usize)> {
             for (r, row) in chmp.board.iter().enumerate() {
-                let mut row_iter = row.iter();
-                if row_iter.any(|x| *x) {
-                    for (c, col) in row_iter.enumerate() {
-                        // If this col is already false, just skip, invalid move.
+                if row.iter().any(|x| *x) {
+                    for (c, col) in row.iter().enumerate() {
+                        // If this col is already false, skip the rest of the row.
+                        if !*col {
+                            break;
+                        }
                         // If move is (0, 0), always losing, skip that too.
-                        if !*col || (r == 0 && c == 0) {
+                        if r == 0 && c == 0 {
                             continue;
                         }
                         let mut p = chmp.clone();
@@ -165,6 +167,31 @@ mod tests {
         let mut c = Chomp::new(2, 2);
         assert!(c.winning_move().is_some());
         c.make_move(1, 1);
+        assert!(c.winning_move().is_none());
+    }
+
+    #[test]
+    fn test_winning_move_all_cols_but_first_gone() {
+        /*
+           In manual testing I noticed that the implementation at the time did not find a winning move in this state:
+           #....
+           #....
+           .....
+           .....
+           The winning move should be (1, 0).
+
+           Turns out the old approach was failing b/c I originally re-used an iterator instance, which was getting
+           consumed by `any()`.
+        */
+        let mut c = Chomp::new(2, 1); // Make board start in above state.
+
+        let mv = c.winning_move();
+        assert!(mv.is_some());
+
+        let mv = mv.unwrap();
+        assert!((1, 0) == mv);
+
+        c.make_move(mv.0, mv.1);
         assert!(c.winning_move().is_none());
     }
 }

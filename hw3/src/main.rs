@@ -59,9 +59,8 @@ fn user_move(posn: &Chomp) -> Option<(usize, usize)> {
 fn computer_move(posn: &Chomp) -> (usize, usize) {
     for (r, row) in posn.board.iter().enumerate().rev() {
         // If there are any active / "uneaten" squares, this is an available row.
-        let mut row_iter = row.iter();
-        if row_iter.any(|x| *x) {
-            for (c, col) in row_iter.enumerate().rev() {
+        if row.iter().any(|x| *x) {
+            for (c, col) in row.iter().enumerate().rev() {
                 if *col {
                     return (r, c); // Short-circuit out, we don't need to search anymore.
                 }
