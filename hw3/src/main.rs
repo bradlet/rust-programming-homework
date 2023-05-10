@@ -76,11 +76,12 @@ fn main() {
 
     loop {
         if let Some((row, col)) = user_move(&board) {
-            println!("\nNew move detected! ({}, {})\n", row, col);
-            board.make_move(row, col)
+            println!("\nNew move detected! ({}, {})", row, col);
+            board.make_move(row, col);
+            println!("\nAI: \"Nice move!\"\n");
         } else {
-            println!("\nBad input!")
+            println!("\nBad input!\n")
         }
-        println!("\nAI: \"Nice move!\"\n\nCurrent board state:\n{}\n", board);
+        println!("Current board state:\n{}\n", board);
     }
 }
