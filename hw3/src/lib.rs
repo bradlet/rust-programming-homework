@@ -85,8 +85,8 @@ impl Chomp {
     ///    return no winning move
     /// ```
     pub fn winning_move(&self) -> Option<(usize, usize)> {
-        /// Nested recursive function which explores all moves until it finds the row/col
-        /// pair that have no subsequent winning move.
+        /// Nested recursive function which explores all moves until it finds a row/col
+        /// pair that cannot be followed with a non-losing moving.
         fn winning_move(chmp: &mut Chomp) -> Option<(usize, usize)> {
             for (r, row) in chmp.board.iter().enumerate() {
                 let mut row_iter = row.iter();

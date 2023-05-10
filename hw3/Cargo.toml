@@ -14,3 +14,4 @@ name = "chomp"
 [dependencies]
 prompted = "0.2.7"
 bradleys-random-rust-helpers = { git = "https://github.com/bradlet/bradleys-random-rust-helpers" }
+text-colorizer = "1"

@@ -16,9 +16,12 @@
 //! at which point either "you lose" or "you win"
 //! is printed depending on the outcome.
 
-use bradleys_random_rust_helpers::parse_num;
+use bradleys_random_rust_helpers::{horizontal_sep, parse_num};
 use chomp_ai::*;
 use prompted::input;
+use text_colorizer::Color;
+
+const H_LINE_LEN: u8 = 64;
 
 /// Get a move from the human player. The human should
 /// supply the move as a row and column (starting from 0)
@@ -52,6 +55,31 @@ fn user_move(posn: &Chomp) -> Option<(usize, usize)> {
     }
 }
 
+/// Search the board for the last uneaten square of the last available row, and return that position.
+fn computer_move(posn: &Chomp) -> (usize, usize) {
+    for (r, row) in posn.board.iter().enumerate().rev() {
+        // If there are any active / "uneaten" squares, this is an available row.
+        let mut row_iter = row.iter();
+        if row_iter.any(|x| *x) {
+            for (c, col) in row_iter.enumerate().rev() {
+                if *col {
+                    return (r, c); // Short-circuit out, we don't need to search anymore.
+                }
+            }
+        }
+    }
+    (0, 0) // Only available move is the losing move.
+}
+
+/// Print out the current board state with surrounding formatting for readability.
+fn display_current_board_state(posn: &Chomp) {
+    let board_display_sep = horizontal_sep(H_LINE_LEN, None);
+    println!(
+        "{}\nCurrent board state:\n{}\n{}\n",
+        board_display_sep, posn, board_display_sep
+    );
+}
+
 /// Play a game, as described above.
 ///
 /// The program should take two command-line arguments
@@ -69,23 +97,61 @@ fn main() {
     let parsed: Vec<usize> = args.iter().map(|x| parse_num(x)).collect();
     let mut board = Chomp::new(parsed[0], parsed[1]);
 
+    println!("Welcome to Chomp V AI!");
+    horizontal_sep(H_LINE_LEN, Some(Color::BrightGreen));
     println!(
-        "Welcome to Chomp V AI!\nAI: \"Welcome to the game. Do you think you can beat me?\"\n\nStarting board ({} {})...\n\n{}\n",
-        parsed[0], parsed[1], board
+        "AI: \"Welcome to the game. Do you think you can beat me?\"\n\nStarting board ({}, {})...\n",
+        parsed[0], parsed[1]
     );
+    display_current_board_state(&board);
 
     loop {
+        // Retrieve move from standard input and enact it on the game board.
         if let Some((row, col)) = user_move(&board) {
             println!("\nNew move detected! ({}, {})", row, col);
             board.make_move(row, col);
-            println!("\nAI: \"Nice move!\"\n");
         } else {
-            println!("\nBad input!\n\nAI: \"How embarassing...\"\n")
+            println!("\nBad input!\n\nAI: \"How embarassing...\"\n");
+            continue;
         }
-        println!("Current board state:\n{}\n", board);
 
+        display_current_board_state(&board);
+
+        // Check if the user has lost as of this move.
         if !board.board[0][0] {
+            horizontal_sep(H_LINE_LEN, Some(Color::BrightRed));
             println!("Game over! You lose!\n\nAI: \"I didn't even have to try...\"\n\n");
+            horizontal_sep(H_LINE_LEN, Some(Color::BrightRed));
+            break;
+        }
+
+        // Check if the AI can make a winning move this turn. If not, return the best "computer move".
+        let winning_mv = board.winning_move();
+        let (row, col) = if let Some((row, col)) = winning_mv {
+            // The AI has detected a winning move, where the next move must lose.
+            print!("AI: \"Nice try, but I cannot be beat... ");
+            (row, col)
+        } else {
+            let ai_mv = computer_move(&board);
+            // Check if AI lost, or if it's stalling further until it can make the winning move.
+            if (0, 0) == ai_mv {
+                print!("AI: \"What!?! But that's impossible! Gah... ");
+            } else {
+                println!("AI: \"Interesting... Maybe your intellect can match my own? ");
+            }
+            ai_mv
+        };
+
+        // Enact the move calculated above and report change in state to user
+        println!("My move is ({}, {})\"\n", row, col);
+        board.make_move(row, col);
+        display_current_board_state(&board);
+
+        // Check if the AI has lost as of this move.
+        if !board.board[0][0] {
+            horizontal_sep(H_LINE_LEN, Some(Color::BrightGreen));
+            println!("Game over! You win!\n\nAI: \"I let you win...\"\n\n");
+            horizontal_sep(H_LINE_LEN, Some(Color::BrightGreen));
             break;
         }
     }
