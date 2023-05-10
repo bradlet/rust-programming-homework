@@ -41,11 +41,11 @@ fn user_move(posn: &Chomp) -> Option<(usize, usize)> {
 
     match (row, col) {
         (Some(row), Some(col)) => {
-            if posn.board[row][col] {
-                Some((row, col))
-            } else {
-                // If the square at (row, col) is false, it's already been taken (or was never available).
+            // If the play is outside of the game board, or the square is already taken, the move is invalid.
+            if row >= posn.nrows || col >= posn.ncols || !posn.board[row][col] {
                 None
+            } else {
+                Some((row, col))
             }
         }
         _ => None,
@@ -75,10 +75,12 @@ fn main() {
     );
 
     loop {
-        if let Some(user_mv) = user_move(&board) {
-            println!("New move detected! ({}, {})", user_mv.0, user_mv.1)
+        if let Some((row, col)) = user_move(&board) {
+            println!("\nNew move detected! ({}, {})\n", row, col);
+            board.make_move(row, col)
         } else {
-            println!("Bad input!")
+            println!("\nBad input!")
         }
+        println!("\nAI: \"Nice move!\"\n\nCurrent board state:\n{}\n", board);
     }
 }
