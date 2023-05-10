@@ -1,6 +1,9 @@
 //! Chomp AI
 //! Bradley Thompson and Bart Massey 2023
 
+use std::array::*;
+use std::fmt::Display;
+
 /// Maximum number of rows the AI can handle.
 const MAX_ROWS: usize = 4;
 /// Maximum number of columns the AI can handle.
@@ -57,7 +60,11 @@ impl Chomp {
     /// Make a move on the current board, "eating" all cells
     /// below `row` and to the right of `col` inclusive.
     pub fn make_move(&mut self, row: usize, col: usize) {
-        todo!()
+        for i in row..self.nrows {
+            for j in col..self.ncols {
+                self.board[i][j] = false;
+            }
+        }
     }
 
     /// Returns `Some` winning move for this position as `(row, col)`.
@@ -83,13 +90,32 @@ impl Chomp {
     }
 }
 
+impl Display for Chomp {
+    /// Convert a Chomp board into a 2D grid of chars, in a String, with rows separated by newline.
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let board_str = self
+            .board
+            .iter()
+            .map(|row| -> String {
+                // Build the row and don't intersperse chars with any separator so that they form a solid row.
+                row.iter()
+                    .map(|sq| if (*sq) { "#" } else { "." })
+                    .collect::<Vec<&str>>()
+                    .join("")
+            })
+            .collect::<Vec<String>>()
+            .join("\n"); // Intersperse rows with newline so the board is 2D.
+        write!(f, "{}", board_str)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
     fn test_new_board() {
-        let mut c = Chomp::new(2, 2);
+        let c = Chomp::new(2, 2);
         for i in 0..MAX_ROWS {
             for j in 0..MAX_COLS {
                 let square = c.board[i][j];
@@ -100,6 +126,15 @@ mod tests {
                 }
             }
         }
+    }
+
+    #[test]
+    fn test_make_move() {
+        let mut c = Chomp::new(2, 3);
+        c.make_move(1, 1);
+        assert!(c.board[0][0]);
+        assert!(!c.board[1][1]);
+        assert!(!c.board[1][2]);
     }
 
     #[test]

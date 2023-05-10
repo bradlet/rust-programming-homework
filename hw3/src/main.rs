@@ -16,9 +16,9 @@
 //! at which point either "you lose" or "you win"
 //! is printed depending on the outcome.
 
+use bradleys_random_rust_helpers::parse_num;
 use chomp_ai::*;
 use prompted::input;
-use bradleys_random_rust_helpers::parse_num;
 
 /// Display the current board. This should produce output in this format:
 ///
@@ -64,4 +64,12 @@ fn user_move(posn: &Chomp) -> Option<(usize, usize)> {
 fn main() {
     let args: Vec<String> = std::env::args().skip(1).collect();
     let parsed: Vec<usize> = args.iter().map(|x| parse_num(x)).collect();
+    let mut board = Chomp::new(parsed[0], parsed[1]);
+
+    println!(
+        "Welcome to Chomp V AI!\nAI: \"Welcome to the game. Do you think you can beat me?\"\n\nStarting board ({}x{})...\n\n{}\n",
+        parsed[0], parsed[1], board
+    );
+
+    // loop {}
 }
