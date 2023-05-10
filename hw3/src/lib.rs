@@ -106,19 +106,6 @@ impl Chomp {
                     }
                 }
             }
-            // for r in 0..chmp.nrows {
-            //     for c in 0..chmp.ncols {
-            //         if r == 0 && c == 0 {
-            //             continue;
-            //         }
-            //         let mut p = chmp.clone();
-            //         p.make_move(r, c);
-            //         let m = winning_move(chmp);
-            //         if m.is_none() {
-            //             return Some((r, c));
-            //         }
-            //     }
-            // }
             None
         }
         let mut mutable_self = self.clone();
