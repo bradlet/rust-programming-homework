@@ -80,7 +80,7 @@ fn main() {
             board.make_move(row, col);
             println!("\nAI: \"Nice move!\"\n");
         } else {
-            println!("\nBad input!\n")
+            println!("\nBad input!\n\nAI: \"How embarassing...\"\n")
         }
         println!("Current board state:\n{}\n", board);
     }
