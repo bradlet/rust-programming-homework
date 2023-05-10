@@ -83,5 +83,10 @@ fn main() {
             println!("\nBad input!\n\nAI: \"How embarassing...\"\n")
         }
         println!("Current board state:\n{}\n", board);
+
+        if !board.board[0][0] {
+            println!("Game over! You lose!\n\nAI: \"I didn't even have to try...\"\n\n");
+            break;
+        }
     }
 }
