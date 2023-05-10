@@ -1,5 +1,5 @@
 //! Command-line Chomp player  
-//! Your Name and Bart Massey 2023
+//! Bradley Thompson and Bart Massey 2023
 //!
 //! This player repeatedly
 //! * Displays the board
@@ -20,21 +20,6 @@ use bradleys_random_rust_helpers::parse_num;
 use chomp_ai::*;
 use prompted::input;
 
-/// Display the current board. This should produce output in this format:
-///
-///    #####
-///    #####
-///    ####.
-///    #....
-///
-fn show_posn(posn: &Chomp) {
-    for i in posn.board.iter() {
-        for j in i.iter() {
-            print!("{}", if *j { "#" } else { "." })
-        }
-    }
-}
-
 /// Get a move from the human player. The human should
 /// supply the move as a row and column (starting from 0)
 /// separated by a space, like this.
@@ -46,7 +31,25 @@ fn show_posn(posn: &Chomp) {
 /// returns `Some` row and column coordinates of the human
 /// move.
 fn user_move(posn: &Chomp) -> Option<(usize, usize)> {
-    todo!()
+    let pair = input!("Enter your row/col pair, separated by a space: ");
+    let indices = pair.split(' ').collect::<Vec<&str>>();
+    if indices.len() != 2 {
+        return None;
+    }
+    let row: Option<usize> = indices[0].parse().ok();
+    let col: Option<usize> = indices[1].parse().ok();
+
+    match (row, col) {
+        (Some(row), Some(col)) => {
+            if posn.board[row][col] {
+                Some((row, col))
+            } else {
+                // If the square at (row, col) is false, it's already been taken (or was never available).
+                None
+            }
+        }
+        _ => None,
+    }
 }
 
 /// Play a game, as described above.
@@ -67,9 +70,15 @@ fn main() {
     let mut board = Chomp::new(parsed[0], parsed[1]);
 
     println!(
-        "Welcome to Chomp V AI!\nAI: \"Welcome to the game. Do you think you can beat me?\"\n\nStarting board ({}x{})...\n\n{}\n",
+        "Welcome to Chomp V AI!\nAI: \"Welcome to the game. Do you think you can beat me?\"\n\nStarting board ({} {})...\n\n{}\n",
         parsed[0], parsed[1], board
     );
 
-    // loop {}
+    loop {
+        if let Some(user_mv) = user_move(&board) {
+            println!("New move detected! ({}, {})", user_mv.0, user_mv.1)
+        } else {
+            println!("Bad input!")
+        }
+    }
 }

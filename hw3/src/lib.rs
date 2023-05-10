@@ -1,7 +1,6 @@
 //! Chomp AI
 //! Bradley Thompson and Bart Massey 2023
 
-use std::array::*;
 use std::fmt::Display;
 
 /// Maximum number of rows the AI can handle.
@@ -99,7 +98,7 @@ impl Display for Chomp {
             .map(|row| -> String {
                 // Build the row and don't intersperse chars with any separator so that they form a solid row.
                 row.iter()
-                    .map(|sq| if (*sq) { "#" } else { "." })
+                    .map(|sq| if *sq { "#" } else { "." })
                     .collect::<Vec<&str>>()
                     .join("")
             })
