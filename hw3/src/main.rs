@@ -119,7 +119,7 @@ fn main() {
         // Check if the user has lost as of this move.
         if !board.board[0][0] {
             horizontal_sep(H_LINE_LEN, Some(Color::BrightRed));
-            println!("Game over! You lose!\n\nAI: \"I didn't even have to try...\"\n\n");
+            println!("Game over! You lose!\n\nAI: \"I didn't even have to try...\"\n");
             horizontal_sep(H_LINE_LEN, Some(Color::BrightRed));
             break;
         }
@@ -149,7 +149,7 @@ fn main() {
         // Check if the AI has lost as of this move.
         if !board.board[0][0] {
             horizontal_sep(H_LINE_LEN, Some(Color::BrightGreen));
-            println!("Game over! You win!\n\nAI: \"I let you win...\"\n\n");
+            println!("Game over! You win!\n\nAI: \"I let you win...\"\n");
             horizontal_sep(H_LINE_LEN, Some(Color::BrightGreen));
             break;
         }
