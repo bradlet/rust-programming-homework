@@ -1,6 +1,6 @@
 [package]
 name = "chomp"
-authors = ["Your Name <you@pdx.edu>", "Bart Massey <bart@cs.pdx.edu>"]
+authors = ["Bradley Thompson <bradlet2@pdx.edu>", "Bart Massey <bart@cs.pdx.edu>"]
 version = "0.1.0"
 edition = "2021"
 license-file = "LICENSE.txt"
