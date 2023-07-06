@@ -1,4 +1,4 @@
-# bradlet2-rust-programming
+# rust-programming-homework
 
 Home for all homework assignment submissions for:
 
@@ -14,11 +14,11 @@ Student: Bradley Thomspon | Odin Username: bradlet2
 While this project will contain subdirectories for each assignment, it is not a single cargo monorepo which would use [Cargo Workspaces](https://doc.rust-lang.org/book/ch14-03-cargo-workspaces.html). Each homework directory is a separate cargo crate. I didn't have anything
 to benefit from easily sharing build artifacts across these projects, because they are distinct assignments.
 
-So there will be one directory per create like:
+The assignments are:
+- HW1: exponential modulu implementation
+- HW2: Toy RSA library + CLI to play with it.
+- HW3: Chomp CLI game + perfect AI player (negamax algo implementation)
 
-> -   hw1
-> -   hw2
->     ...
 
 There is also a separate common library crate hosted on my own github. Check that out here: [Bradley's Random Rust Helpers](https://github.com/bradlet/bradleys-random-rust-helpers)
 
